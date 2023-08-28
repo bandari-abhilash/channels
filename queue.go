@@ -51,7 +51,7 @@ func publisher(queue chan<- Stock, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for {
-		// Simulate getting stock data from NSE (replace with actual data retrieval).
+		// TODO : Simulate getting stock data from NSE (replace with actual data retrieval).
 		stockData := generateRandomStockData()
 		// Push the stock data to the queue.
 		queue <- stockData
@@ -64,9 +64,7 @@ func subscriber(id int, queue <-chan Stock, wg *sync.WaitGroup) {
 
 	for stockData := range queue {
 		fmt.Printf("Subscriber %d received: %+v\n", id, stockData)
-
-		// You can perform your processing here.
-		// For example, you can implement logic to buy/sell stocks or analyze data.
+		// Just printing the stock data and the subscriber id
 	}
 }
 
@@ -103,7 +101,7 @@ func queueSizeMonitor(queue chan Stock, maxQueueSize int, increaseThreshold, dec
 			queue = adjustQueueSize(queue, newQueueSize)
 		}
 
-		// Sleep for a while before checking again.
+		// Sleep for a while before checking again. Checking the size of queue every 5 seconds
 		time.Sleep(5 * time.Second)
 	}
 }
